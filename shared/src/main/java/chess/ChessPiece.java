@@ -1,5 +1,6 @@
 package chess;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -51,6 +52,72 @@ public class ChessPiece {
      * @return Collection of valid moves
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
-        throw new RuntimeException("Not implemented");
+        Collection<ChessMove> possibleMoves = new ArrayList<>();
+
+        switch (type) {
+            case PAWN:
+                return findPawnMoves(board, myPosition);
+            case ROOK:
+                return findRookMoves(board, myPosition);
+            case BISHOP:
+                return findBishopMoves(board, myPosition);
+            case QUEEN:
+                return findQueenMoves(board, myPosition);
+            case KING:
+                return findKingMoves(board, myPosition);
+            case KNIGHT:
+                return findKnightMoves(board, myPosition);
+        }
+
+        return possibleMoves;
+    }
+
+    public Collection<ChessMove> findPawnMoves(ChessBoard board, ChessPosition myPosition) {
+        Collection<ChessMove> possibleMoves = new ArrayList<>();
+
+        return possibleMoves;
+    }
+
+    public Collection<ChessMove> findRookMoves(ChessBoard board, ChessPosition myPosition) {
+        Collection<ChessMove> possibleMoves = new ArrayList<>();
+
+        return possibleMoves;
+    }
+
+    public Collection<ChessMove> findBishopMoves(ChessBoard board, ChessPosition myPosition) {
+        Collection<ChessMove> possibleMoves = new ArrayList<>();
+
+        return possibleMoves;
+    }
+
+    public Collection<ChessMove> findQueenMoves(ChessBoard board, ChessPosition myPosition) {
+        Collection<ChessMove> possibleMoves = new ArrayList<>();
+
+        return possibleMoves;
+    }
+
+    public Collection<ChessMove> findKingMoves(ChessBoard board, ChessPosition myPosition) {
+        Collection<ChessMove> possibleMoves = new ArrayList<>();
+
+        return possibleMoves;
+    }
+
+    public Collection<ChessMove> findKnightMoves(ChessBoard board, ChessPosition myPosition) {
+        Collection<ChessMove> possibleMoves = new ArrayList<>();
+
+        return possibleMoves;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof ChessPiece other) {
+            return (this.pieceColor.equals(other.getTeamColor()) && this.type.equals(other.getPieceType()));
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return 31 * this.pieceColor.hashCode() + this.type.hashCode();
     }
 }

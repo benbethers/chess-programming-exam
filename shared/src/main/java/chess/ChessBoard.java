@@ -19,7 +19,7 @@ public class ChessBoard {
      * @param piece    the piece to add
      */
     public void addPiece(ChessPosition position, ChessPiece piece) {
-        throw new RuntimeException("Not implemented");
+
     }
 
     /**
@@ -41,7 +41,7 @@ public class ChessBoard {
         throw new RuntimeException("Not implemented");
     }
 
-    @Override
+    /** @Override
     public boolean equals(Object object) {
         if (object instanceof ChessBoard chessBoard) {
             return ;
@@ -52,4 +52,5 @@ public class ChessBoard {
     public int hashCode() {
 
     }
+    **/
 }

@@ -44,13 +44,13 @@ public class ChessMove {
     @Override
     public boolean equals(Object object) {
         if (object instanceof ChessMove other) {
-            return (this.endPosition.equals(other.getEndPosition()) && this.startPosition.equals(other.getStartPosition()) && this.promotionPiece.equals(other.getPromotionPiece()));
+            return (this.endPosition.equals(other.getEndPosition()) && this.startPosition.equals(other.getStartPosition()) && (this.promotionPiece == null && other.getPromotionPiece() == null ? true : this.promotionPiece.equals(other.getPromotionPiece())));
         }
         return false;
     }
 
     @Override
     public int hashCode() {
-        return 31 * this.startPosition.hashCode() + this.endPosition.hashCode() + this.promotionPiece.hashCode();
+        return 31 * this.startPosition.hashCode() + this.endPosition.hashCode() + (promotionPiece == null ? 0 : this.promotionPiece.hashCode());
     }
 }
