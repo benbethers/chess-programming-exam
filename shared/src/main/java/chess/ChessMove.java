@@ -15,6 +15,7 @@ public class ChessMove {
                      ChessPiece.PieceType promotionPiece) {
         this.startPosition = startPosition;
         this.endPosition = endPosition;
+        this.promotionPiece = promotionPiece;
     }
 
     /**
@@ -44,13 +45,19 @@ public class ChessMove {
     @Override
     public boolean equals(Object object) {
         if (object instanceof ChessMove other) {
-            return (this.endPosition.equals(other.getEndPosition()) && this.startPosition.equals(other.getStartPosition()) && (this.promotionPiece == null && other.getPromotionPiece() == null ? true : this.promotionPiece.equals(other.getPromotionPiece())));
+            if (
+                this.startPosition.equals(other.getStartPosition())
+                && this.endPosition.equals(other.getEndPosition())
+                && this.getPromotionPiece() == other.getPromotionPiece()
+            ) {
+                return true;
+            }
         }
         return false;
     }
 
     @Override
     public int hashCode() {
-        return 31 * this.startPosition.hashCode() + this.endPosition.hashCode() + (promotionPiece == null ? 0 : this.promotionPiece.hashCode());
+        return 31 * this.startPosition.hashCode() + this.endPosition.hashCode() + (this.promotionPiece == null ? 0 : this.promotionPiece.hashCode());
     }
 }

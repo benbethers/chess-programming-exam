@@ -1,5 +1,8 @@
 package chess;
 
+import static java.util.Arrays.deepEquals;
+import static java.util.Arrays.deepHashCode;
+
 /**
  * A chessboard that can hold and rearrange chess pieces.
  * <p>
@@ -7,7 +10,7 @@ package chess;
  * signature of the existing methods.
  */
 public class ChessBoard {
-    ChessPiece[][] squares = new ChessPiece[8][8];
+    public ChessPiece[][] squares = new ChessPiece[8][8];
 
     public ChessBoard() {
 
@@ -40,10 +43,35 @@ public class ChessBoard {
      */
     public void resetBoard() {
         ChessPiece[][] squares = new ChessPiece[8][8];
+
+        for (int i = 1; i <= 8; i++) {
+            addPiece(new ChessPosition(7, i), new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.PAWN));
+            addPiece(new ChessPosition(2, i), new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.PAWN));
+            if (i == 1 || i == 8) {
+                addPiece(new ChessPosition(8, i), new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.ROOK));
+                addPiece(new ChessPosition(1, i), new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.ROOK));
+            }
+            if (i == 2 || i == 7) {
+                addPiece(new ChessPosition(8, i), new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KNIGHT));
+                addPiece(new ChessPosition(1, i), new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.KNIGHT));
+            }
+            if (i == 3 || i == 6) {
+                addPiece(new ChessPosition(8, i), new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.BISHOP));
+                addPiece(new ChessPosition(1, i), new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.BISHOP));
+            }
+            if (i == 4) {
+                addPiece(new ChessPosition(8, i), new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.QUEEN));
+                addPiece(new ChessPosition(1, i), new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.QUEEN));
+            }
+            if (i == 5) {
+                addPiece(new ChessPosition(8, i), new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KING));
+                addPiece(new ChessPosition(1, i), new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.KING));
+            }
+        }
     }
 
     public boolean inBounds(int row, int col) {
-        return (row > 1 && row <= 8 && col > 1 && col <= 8);
+        return (row > 0 && row <= 8 && col > 0 && col <= 8);
     }
 
     public boolean isOccupied(int row, int col) {
@@ -54,16 +82,16 @@ public class ChessBoard {
         return true;
     }
 
-    /** @Override
+    @Override
     public boolean equals(Object object) {
-        if (object instanceof ChessBoard chessBoard) {
-            return ;
+        if (object instanceof ChessBoard other) {
+            return deepEquals(squares, other.squares);
         }
+        return false;
     }
 
     @Override
     public int hashCode() {
-
+        return deepHashCode(squares);
     }
-    **/
 }
