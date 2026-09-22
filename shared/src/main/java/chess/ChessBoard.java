@@ -40,4 +40,16 @@ public class ChessBoard {
     public void resetBoard() {
         throw new RuntimeException("Not implemented");
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof ChessBoard chessBoard) {
+            return ;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+
+    }
 }
