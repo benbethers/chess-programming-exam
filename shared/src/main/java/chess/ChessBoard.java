@@ -7,9 +7,10 @@ package chess;
  * signature of the existing methods.
  */
 public class ChessBoard {
+    ChessPiece[][] squares = new ChessPiece[8][8];
 
     public ChessBoard() {
-        
+
     }
 
     /**
@@ -19,7 +20,7 @@ public class ChessBoard {
      * @param piece    the piece to add
      */
     public void addPiece(ChessPosition position, ChessPiece piece) {
-
+        squares[position.getRow() - 1][position.getColumn() - 1] = piece;
     }
 
     /**
@@ -30,7 +31,7 @@ public class ChessBoard {
      * position
      */
     public ChessPiece getPiece(ChessPosition position) {
-        throw new RuntimeException("Not implemented");
+        return squares[position.getRow() - 1][position.getColumn() - 1];
     }
 
     /**
@@ -38,7 +39,19 @@ public class ChessBoard {
      * (How the game of chess normally starts)
      */
     public void resetBoard() {
-        throw new RuntimeException("Not implemented");
+        ChessPiece[][] squares = new ChessPiece[8][8];
+    }
+
+    public boolean inBounds(int row, int col) {
+        return (row > 1 && row <= 8 && col > 1 && col <= 8);
+    }
+
+    public boolean isOccupied(int row, int col) {
+        ChessPosition testPosition = new ChessPosition(row, col);
+        if (getPiece(testPosition) == null) {
+            return false;
+        }
+        return true;
     }
 
     /** @Override
