@@ -54,13 +54,19 @@ public class ChessGame {
         return board.getPiece(startPosition).pieceMoves(board, startPosition);
     }
 
+    /**
+     * Gets all valid moves for a selected team
+     *
+     * @param teamColor The team color to return the moves of
+     * @return Set of valid moves for all pieces of the selected team
+     */
     public Collection<ChessMove> validTeamMoves(TeamColor teamColor) {
         Collection validTeamMoves = new ArrayList<>;
         for (int i = 1; i <= 8; i++) {
             for (int j = 1; j <= 8; j++) {
                 if (board.getPiece(new ChessPosition(i, j)) != null) {
                     if (board.getPiece(new ChessPosition(i, j)).getTeamColor() == teamColor) {
-                        validTeamMoves.addALl(board.getPiece(new ChessPosition(i, j)).pieceMoves(board, new ChessPosition(i, j)));
+                        validTeamMoves.addAll(board.getPiece(new ChessPosition(i, j)).pieceMoves(board, new ChessPosition(i, j)));
                     }
                 }
             }
