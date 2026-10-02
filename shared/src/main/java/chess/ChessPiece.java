@@ -2,9 +2,6 @@ package chess;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
-
-import static java.util.Arrays.deepHashCode;
 
 /**
  * Represents a single chess piece
@@ -89,13 +86,6 @@ public class ChessPiece {
                 !board.isOccupied(row + verticalProgression, col)
                 && board.inBounds(row + verticalProgression, col)
         ) {
-            possibleMoves.add(
-                    new ChessMove(
-                            new ChessPosition(row, col),
-                            new ChessPosition(row + verticalProgression, col),
-                            null
-                    )
-            );
             if (row + verticalProgression == 8 || row + verticalProgression == 1) {
                 possibleMoves.add(
                         new ChessMove(
@@ -123,6 +113,14 @@ public class ChessPiece {
                                 new ChessPosition(row, col),
                                 new ChessPosition(row + verticalProgression, col),
                                 PieceType.KNIGHT
+                        )
+                );
+            } else {
+                possibleMoves.add(
+                        new ChessMove(
+                                new ChessPosition(row, col),
+                                new ChessPosition(row + verticalProgression, col),
+                                null
                         )
                 );
             }
@@ -133,13 +131,6 @@ public class ChessPiece {
                 && board.isOccupied(row + verticalProgression, col - 1)
                 && !board.getPiece(new ChessPosition(row + verticalProgression, col - 1)).getTeamColor().equals(this.pieceColor)
         ) {
-            possibleMoves.add(
-                    new ChessMove(
-                            new ChessPosition(row, col),
-                            new ChessPosition(row + verticalProgression, col - 1),
-                            null
-                    )
-            );
             if (row + verticalProgression == 8 || row + verticalProgression == 1) {
                 possibleMoves.add(
                         new ChessMove(
@@ -167,6 +158,14 @@ public class ChessPiece {
                                 new ChessPosition(row, col),
                                 new ChessPosition(row + verticalProgression, col - 1),
                                 PieceType.KNIGHT
+                        )
+                );
+            } else {
+                possibleMoves.add(
+                        new ChessMove(
+                                new ChessPosition(row, col),
+                                new ChessPosition(row + verticalProgression, col - 1),
+                                null
                         )
                 );
             }
@@ -177,13 +176,6 @@ public class ChessPiece {
                 && board.isOccupied(row + verticalProgression, col + 1)
                 && !board.getPiece(new ChessPosition(row + verticalProgression, col + 1)).getTeamColor().equals(this.pieceColor)
         ) {
-            possibleMoves.add(
-                    new ChessMove(
-                            new ChessPosition(row, col),
-                            new ChessPosition(row + verticalProgression, col + 1),
-                            null
-                    )
-            );
             if (row + verticalProgression == 8 || row + verticalProgression == 1) {
                 possibleMoves.add(
                         new ChessMove(
@@ -211,6 +203,14 @@ public class ChessPiece {
                                 new ChessPosition(row, col),
                                 new ChessPosition(row + verticalProgression, col + 1),
                                 PieceType.KNIGHT
+                        )
+                );
+            } else {
+                possibleMoves.add(
+                        new ChessMove(
+                                new ChessPosition(row, col),
+                                new ChessPosition(row + verticalProgression, col + 1),
+                                null
                         )
                 );
             }
