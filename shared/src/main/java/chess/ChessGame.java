@@ -3,6 +3,8 @@ package chess;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import static chess.ChessGame.TeamColor.BLACK;
+
 /**
  * A class that can manage a chess game, making moves on a board
  * <p>
@@ -85,14 +87,20 @@ public class ChessGame {
         Collection validMoves = this.validMoves(move.getStartPosition());
 
         // Check if the proposed move is in the valid moves list
-        if (!validMoves.contains(move)) {
+        if (!validMoves.contains(move) || movingPiece.getTeamColor() != this.currentTurn) {
             throw new InvalidMoveException("This is an invalid move");
         }
             board.removePiece(move.getStartPosition());
-            if (board.getPiece(move.getEndPosition()) == null) {
+            if (board.getPiece(move.getEndPosition()) != null) {
                 board.removePiece(move.getEndPosition());
             }
             board.addPiece(move.getEndPosition(), movingPiece);
+
+            if (currentTurn == TeamColor.WHITE) {
+                this.setTeamTurn(TeamColor.BLACK);
+            } else {
+                this.setTeamTurn(TeamColor.WHITE);
+            }
     }
 
     /**
