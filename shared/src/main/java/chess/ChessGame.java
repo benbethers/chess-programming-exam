@@ -83,11 +83,14 @@ public class ChessGame {
      * @throws InvalidMoveException if move is invalid
      */
     public void makeMove(ChessMove move) throws InvalidMoveException {
+        if (board.getPiece(move.getStartPosition()) == null) {
+            throw new InvalidMoveException("This is an invalid move");
+        }
         ChessPiece movingPiece = board.getPiece(move.getStartPosition());
         Collection validMoves = this.validMoves(move.getStartPosition());
 
         // Check if the proposed move is in the valid moves list
-        if (!validMoves.contains(move) || movingPiece.getTeamColor() != this.currentTurn || movingPiece == null) {
+        if (!validMoves.contains(move) || movingPiece.getTeamColor() != this.currentTurn) {
             throw new InvalidMoveException("This is an invalid move");
         }
             board.removePiece(move.getStartPosition());
