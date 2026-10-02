@@ -63,7 +63,7 @@ public class ChessGame {
      * @return Set of valid moves for all pieces of the selected team
      */
     public Collection<ChessMove> validTeamMoves(TeamColor teamColor) {
-        Collection validTeamMoves = new ArrayList<>;
+        Collection validTeamMoves = new ArrayList<>();
         for (int i = 1; i <= 8; i++) {
             for (int j = 1; j <= 8; j++) {
                 if (board.getPiece(new ChessPosition(i, j)) != null) {
@@ -87,7 +87,7 @@ public class ChessGame {
         Collection validMoves = this.validMoves(move.getStartPosition());
 
         // Check if the proposed move is in the valid moves list
-        if (!validMoves.contains(move) || movingPiece.getTeamColor() != this.currentTurn) {
+        if (!validMoves.contains(move) || movingPiece.getTeamColor() != this.currentTurn || movingPiece == null) {
             throw new InvalidMoveException("This is an invalid move");
         }
             board.removePiece(move.getStartPosition());
