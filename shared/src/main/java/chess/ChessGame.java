@@ -10,7 +10,7 @@ import java.util.Collection;
  */
 public class ChessGame {
     public TeamColor currentTurn;
-    public ChessBoard currentBoard;
+    public ChessBoard board;
 
     public ChessGame() {
 
@@ -48,7 +48,7 @@ public class ChessGame {
      * startPosition
      */
     public Collection<ChessMove> validMoves(ChessPosition startPosition) {
-        return currentBoard.getPiece(startPosition).pieceMoves(currentBoard, startPosition);
+        return board.getPiece(startPosition).pieceMoves(board, startPosition);
     }
 
     /**
@@ -98,7 +98,7 @@ public class ChessGame {
      * @param board the new board to use
      */
     public void setBoard(ChessBoard board) {
-        throw new RuntimeException("Not implemented");
+        board.resetBoard();
     }
 
     /**
@@ -107,6 +107,6 @@ public class ChessGame {
      * @return the chessboard
      */
     public ChessBoard getBoard() {
-        return currentBoard;
+        return board;
     }
 }
