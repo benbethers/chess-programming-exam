@@ -51,7 +51,41 @@ public class ChessGame {
      * startPosition
      */
     public Collection<ChessMove> validMoves(ChessPosition startPosition) {
-        return board.getPiece(startPosition).pieceMoves(board, startPosition);
+        ChessPiece piece = board.getPiece(startPosition);
+
+        if (piece == null) {
+            return null;
+        }
+
+        Collection<ChessMove> moves = piece.pieceMoves(board, startPosition);
+        Collection<ChessMove> validMoves = new ArrayList<>();
+
+        for (ChessMove move : moves) {
+            ChessPiece capturedPiece = board.getPiece(move.getEndPosition());
+
+            board.removePiece(move.getStartPosition());
+            board.removePiece(move.getEndPosition());
+            if (move.getPromotionPiece() != null) {
+                board.addPiece(move.getEndPosition(), new ChessPiece(piece.getTeamColor(), move.getPromotionPiece()));
+            } else {
+                board.addPiece(move.getEndPosition(), piece);
+            }
+
+            boolean inCheck = isInCheck(piece.getTeamColor());
+
+            board.removePiece(move.getEndPosition());
+            board.addPiece(move.getStartPosition(), piece);
+
+            if (capturedPiece != null) {
+                board.addPiece(move.getEndPosition(), capturedPiece);
+            }
+
+            if (!inCheck) {
+                validMoves.add(move);
+            }
+        }
+        return validMoves;
+        // return board.getPiece(startPosition).pieceMoves(board, startPosition);
     }
 
     /**
@@ -164,7 +198,7 @@ public class ChessGame {
 
             // Undo temporary move
             board.removePiece(move.getEndPosition());
-            board.addPiece(move.getEndPosition(), capturedPiece);
+            board.addPiece(move.getStartPosition(), movingPiece);
 
             if (capturedPiece != null) {
                 board.addPiece(move.getEndPosition(), capturedPiece);
@@ -174,11 +208,9 @@ public class ChessGame {
             if (!stillInCheck) {
                 return false;
             }
-
-            return true;
         }
 
-        return this.isInCheck(teamColor) && board.getPiece(this.findKing(teamColor)).pieceMoves(board, this.findKing(teamColor)) == null;
+        return true;
     }
 
     /**
