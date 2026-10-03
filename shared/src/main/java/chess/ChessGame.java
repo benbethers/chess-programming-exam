@@ -3,8 +3,6 @@ package chess;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import static chess.ChessGame.TeamColor.BLACK;
-
 /**
  * A class that can manage a chess game, making moves on a board
  * <p>
@@ -148,7 +146,39 @@ public class ChessGame {
      * @return True if the specified team is in checkmate
      */
     public boolean isInCheckmate(TeamColor teamColor) {
+        // Return false if not in check
+        if (!this.isInCheck(teamColor)) {
+            return false;
+        }
 
+        for (ChessMove move : this.validTeamMoves(teamColor)) {
+            ChessPiece movingPiece = board.getPiece(move.getStartPosition());
+            ChessPiece capturedPiece = board.getPiece(move.getEndPosition());
+
+            // Temporarily make move
+            board.removePiece(move.getStartPosition());
+            board.removePiece(move.getEndPosition());
+            board.addPiece(move.getEndPosition(), movingPiece);
+
+            boolean stillInCheck = this.isInCheck(teamColor);
+
+            // Undo temporary move
+            board.removePiece(move.getEndPosition());
+            board.addPiece(move.getEndPosition(), capturedPiece);
+
+            if (capturedPiece != null) {
+                board.addPiece(move.getEndPosition(), capturedPiece);
+            }
+
+            // This move saves the king
+            if (!stillInCheck) {
+                return false;
+            }
+
+            return true;
+        }
+
+        return this.isInCheck(teamColor) && board.getPiece(this.findKing(teamColor)).pieceMoves(board, this.findKing(teamColor)) == null;
     }
 
     /**
