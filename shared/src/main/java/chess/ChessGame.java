@@ -237,6 +237,7 @@ public class ChessGame {
             board.removePiece(move.getEndPosition());
             board.addPiece(move.getStartPosition(), movingPiece);
 
+            // Add captured piece back if it exists
             if (capturedPiece != null) {
                 board.addPiece(move.getEndPosition(), capturedPiece);
             }
