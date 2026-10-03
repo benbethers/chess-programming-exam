@@ -133,9 +133,12 @@ public class ChessGame {
             opposingTeam = TeamColor.BLACK;
         }
 
-        for (ChessMove move : this.validTeamMoves(teamColor)) {
-            if (move.getEndPosition() == this.findKing(teamColor));
+        for (ChessMove move : this.validTeamMoves(opposingTeam)) {
+            if (move.getEndPosition().equals(this.findKing(teamColor))) {
+                return true;
+            }
         }
+        return false;
     }
 
     /**
